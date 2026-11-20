@@ -1,0 +1,24 @@
+{
+  "name": "buildroyale-portal",
+  "version": "1.0.0",
+  "description": "Rychlá webová herní platforma s 3D střílečkou se stavěním BuildRoyale 3D (Three.js + Socket.io)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "threejs",
+    "socketio",
+    "web-game",
+    "buildroyale",
+    "1v1",
+    "html5"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.4",
+    "three": "^0.187.0"
+  }
+}
