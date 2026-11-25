@@ -1,0 +1,761 @@
+/* ================= COUNTER SHOOT 2 — LOBBY & HUD ================= */
+#cs2-lobby-view {
+  position: relative;
+  width: 100%;
+  min-height: 100dvh;
+  background: radial-gradient(circle at 30% 25%, rgba(245, 158, 11, 0.12) 0%, #11151d 52%, #0b0d12 100%);
+  overflow-y: auto;
+}
+
+.cs2-lobby-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: clamp(16px, 2.6vw, 32px) clamp(14px, 3vw, 28px);
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .cs2-lobby-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cs2-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.45);
+}
+
+.cs2-map-preview {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #141922;
+  aspect-ratio: 16 / 9;
+}
+
+.cs2-map-preview svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.cs2-map-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(15, 17, 21, 0.86);
+  border: 1px solid rgba(245, 158, 11, 0.42);
+  color: #fbbf24;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cs2-mode-summary {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.cs2-tips-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.cs2-tip-item {
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: rgba(15, 17, 21, 0.65);
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cs2-tip-key {
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text);
+  font-size: 0.68rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.cs2-seg-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+}
+
+.cs2-seg-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  padding: 4px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+}
+
+.cs2-seg-btn {
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cs2-seg-btn span.sub {
+  font-size: 0.68rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.cs2-seg-btn:hover:not(:disabled) {
+  color: var(--text);
+}
+
+.cs2-seg-btn.active {
+  background: var(--bg-elevated-2);
+  color: var(--text);
+  box-shadow: inset 0 -2px 0 #f59e0b;
+}
+
+.cs2-seg-btn.ct.active {
+  box-shadow: inset 0 -2px 0 #38bdf8;
+  color: #7dd3fc;
+}
+
+.cs2-seg-btn.t.active {
+  box-shadow: inset 0 -2px 0 #f59e0b;
+  color: #fbbf24;
+}
+
+.cs2-room-box {
+  background: rgba(15, 17, 21, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cs2-room-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cs2-room-roster {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cs2-roster-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.78rem;
+}
+
+.cs2-team-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.cs2-team-tag.ct {
+  background: rgba(56, 189, 248, 0.16);
+  color: #38bdf8;
+}
+
+.cs2-team-tag.t {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+}
+
+.cs2-play-cta {
+  width: 100%;
+  padding: 13px 20px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #0b0e14;
+  font-size: 0.98rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+}
+
+.cs2-play-cta:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow: 0 0 22px rgba(245, 158, 11, 0.35);
+}
+
+.cs2-play-cta:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ================= COUNTER SHOOT 2 — IN-GAME HUD ================= */
+#cs2-game-view {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0a0c10;
+}
+
+#cs2-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#cs2-damage-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 45%, rgba(239, 68, 68, 0.52) 100%);
+  transition: opacity 0.12s ease;
+}
+
+#cs2-damage-vignette.flash {
+  opacity: 1;
+}
+
+.cs2-hud-topleft {
+  position: fixed;
+  top: 12px;
+  left: 14px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  pointer-events: none;
+}
+
+.cs2-vel-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 9px;
+  border-radius: 7px;
+  background: rgba(15, 17, 21, 0.78);
+  border: 1px solid var(--border);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  width: fit-content;
+}
+
+.cs2-vel-chip.accurate {
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.35);
+}
+
+/* Top-Center Match Scoreboard & Alive Indicators */
+.cs2-hud-topcenter {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.cs2-top-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: rgba(15, 17, 21, 0.86);
+  border: 1px solid var(--border);
+}
+
+.cs2-alive-strip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cs2-alive-pip {
+  width: 10px;
+  height: 16px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.cs2-alive-pip.ct.alive {
+  background: #38bdf8;
+  border-color: #7dd3fc;
+}
+
+.cs2-alive-pip.t.alive {
+  background: #f59e0b;
+  border-color: #fcd34d;
+}
+
+.cs2-score-box {
+  min-width: 28px;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.cs2-score-box.ct {
+  color: #38bdf8;
+}
+
+.cs2-score-box.t {
+  color: #fbbf24;
+}
+
+.cs2-clock-box {
+  min-width: 68px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  text-align: center;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.cs2-clock-box.planted {
+  background: rgba(239, 68, 68, 0.24);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.55);
+}
+
+.cs2-phase-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Top-Right Hints + Killfeed */
+.cs2-hud-topright {
+  position: fixed;
+  top: 12px;
+  right: 14px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.cs2-hud-topright .hud-keyhints {
+  pointer-events: auto;
+}
+
+.cs2-killfeed {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.cs2-kf-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  background: rgba(15, 17, 21, 0.84);
+  border: 1px solid var(--border);
+  font-size: 0.74rem;
+  font-weight: 700;
+  animation: viewFade 0.14s ease;
+}
+
+.cs2-kf-row .ct { color: #38bdf8; }
+.cs2-kf-row .t { color: #fbbf24; }
+.cs2-kf-row .wpn { color: var(--text-muted); font-size: 0.68rem; }
+.cs2-kf-row .hs { color: #ef4444; font-weight: 900; }
+
+/* Bottom-Left Vitals (HP & Vest/Helmet) */
+.cs2-hud-bottomleft {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.cs2-vital-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  background: rgba(15, 17, 21, 0.85);
+  border: 1px solid var(--border);
+}
+
+.cs2-vital-num {
+  font-size: 1.55rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.cs2-vital-num.hp { color: #4ade80; }
+.cs2-vital-num.hp.low { color: #ef4444; }
+.cs2-vital-num.armor { color: #38bdf8; }
+
+.cs2-vital-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cs2-vital-label {
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cs2-vital-bar {
+  width: 68px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.cs2-vital-bar-fill {
+  height: 100%;
+  background: #4ade80;
+  transition: width 0.1s ease;
+}
+
+.cs2-vital-bar-fill.armor {
+  background: #38bdf8;
+}
+
+/* Bottom-Right Money, Ammo & Weapon Slots */
+.cs2-hud-bottomright {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.cs2-money-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cs2-money-pill {
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: rgba(15, 17, 21, 0.86);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  color: #4ade80;
+  font-size: 0.96rem;
+  font-weight: 900;
+}
+
+.cs2-buy-pill {
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #fbbf24;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.cs2-ammo-panel {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(15, 17, 21, 0.86);
+  border: 1px solid var(--border);
+}
+
+.cs2-ammo-mag {
+  font-size: 1.65rem;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1;
+}
+
+.cs2-ammo-res {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.cs2-ammo-wpn {
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: #fbbf24;
+  margin-left: 4px;
+  text-transform: uppercase;
+}
+
+.cs2-slots-row {
+  display: flex;
+  gap: 5px;
+  padding: 4px;
+  border-radius: 10px;
+  background: rgba(15, 17, 21, 0.82);
+  border: 1px solid var(--border);
+}
+
+.cs2-slot {
+  min-width: 58px;
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.cs2-slot.active {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: rgba(245, 158, 11, 0.55);
+  color: #ffffff;
+}
+
+.cs2-slot.empty {
+  opacity: 0.35;
+}
+
+/* Action Progress Bar & Prompts */
+.cs2-action-bar {
+  position: fixed;
+  top: calc(50% + 44px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 170px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(15, 17, 21, 0.9);
+  border: 1px solid var(--border-hover);
+  z-index: 12;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cs2-action-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.cs2-action-track {
+  width: 100%;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.cs2-action-fill {
+  height: 100%;
+  width: 0%;
+  background: #f59e0b;
+}
+
+.cs2-spec-bar {
+  position: fixed;
+  bottom: 92px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(15, 17, 21, 0.88);
+  border: 1px solid var(--border);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text);
+  z-index: 12;
+  pointer-events: none;
+}
+
+/* Buy Menu Modal & Scoreboard & Match End */
+.cs2-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 28;
+  background: rgba(9, 11, 15, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.cs2-buy-card {
+  width: min(680px, 100%);
+  background: rgba(22, 26, 33, 0.96);
+  border: 1px solid var(--border-hover);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.65);
+}
+
+.cs2-buy-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs2-buy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 10px;
+}
+
+.cs2-buy-item {
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(15, 17, 21, 0.85);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+}
+
+.cs2-buy-item:hover:not(:disabled) {
+  border-color: rgba(245, 158, 11, 0.6);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+.cs2-buy-item:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.cs2-buy-item.owned {
+  border-color: rgba(74, 222, 128, 0.45);
+}
+
+.cs2-buy-item-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.cs2-buy-price {
+  color: #4ade80;
+  font-size: 0.8rem;
+}
+
+.cs2-buy-desc {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.cs2-sb-card {
+  width: min(620px, 100%);
+  background: rgba(18, 21, 28, 0.94);
+  border: 1px solid var(--border-hover);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cs2-sb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.cs2-sb-table th {
+  text-align: left;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cs2-sb-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
